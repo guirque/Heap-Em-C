@@ -13,7 +13,7 @@ typedef struct heap_struct
     int *content;
 }heap;
 
-//Create heap
+//Returns a new heap
 heap hCreate(int type, int initialSize)
 {
     heap* aHeap = (heap*)malloc(sizeof(heap));
@@ -45,32 +45,29 @@ void hInsert(heap* aHeap, int value)
     int child = aHeap->taken-1;
     int parent = floor((child-1)/2);
     
-    while(parent >= 0)
-    {
-        //Ordered
-        if(
-            (aHeap->type == 0 && aHeap->content[parent] <= aHeap->content[child]) ||
-            (aHeap->type == 1 && aHeap->content[parent] >= aHeap->content[child])
-            )
+        //printf("%d <= %d : %d\n", aHeap->content[parent], aHeap->content[child], aHeap->content[parent] <= aHeap->content[child]);
+        
+        //while unordered, keep swapping
+        while(
+            ((aHeap->type == 0 && aHeap->content[parent] > aHeap->content[child]) ||
+            (aHeap->type == 1 && aHeap->content[parent] < aHeap->content[child])) &&
+            parent >= 0)
         {
-            break;
-        }
-        //Not ordered: switch them
-        else
-        {
+            //Not ordered: swap them
+            //printf("Swapping %d and %d\n", aHeap->content[parent], aHeap->content[child]);
             int aux = aHeap->content[child];
             aHeap->content[child] = aHeap->content[parent];
             aHeap->content[parent] = aux;
-        }
 
-        //Updating Indexes through analysis
-        child = parent;
-        if(parent == 0) parent = -1;
-        parent = floor((child-1)/2);
-    }
+            //Updating Indexes through analysis
+            child = parent;
+            if(parent == 0) parent = -1;
+            parent = floor((child-1)/2);
+        };
     
 }
 
+//Prints heap (as an array)
 void printHeapArray(heap aHeap)
 {
     for(int i = 0; i < aHeap.taken-1; i++)
@@ -99,7 +96,7 @@ void printHeapLevel(heap aHeap, int index, int level, int levelToPrint)
 
 int recursiveHeight(heap aHeap, int index, int height)
 {
-    if(index < aHeap.taken - 1)
+    if(index <= aHeap.taken - 1)
     {
         int leftHeight = recursiveHeight(aHeap, index * 2 + 1, height+1);
         int rightHeight = recursiveHeight(aHeap, index *2  + 2, height+1);
@@ -107,11 +104,13 @@ int recursiveHeight(heap aHeap, int index, int height)
     }
     else return height;
 }
+//Returns the height of a heap, as with levels defined like a tree.
 int heapHeight(heap aHeap)
 {
     recursiveHeight(aHeap, 0, 0);
 }
 
+//Prints a heap per level, like a tree.
 void printHeap(heap aHeap)
 {
     for(int i = 0; i < heapHeight(aHeap); i++)
@@ -119,7 +118,4 @@ void printHeap(heap aHeap)
         printHeapLevel(aHeap, 0, 0, i);
         printf("\n");
     }
-    //printHeapLevel(aHeap, 0, 0, 0); printf("\n");
-    //printHeapLevel(aHeap, 0, 0, 1);
-    
 }
