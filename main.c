@@ -5,19 +5,7 @@
 
 int main()
 {
-
-    //.insert()
-    //.pop()
-    //minheap || maxheap
-
-    //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    //0 -> 2 && 0 -> 3
-    // 1 -> 3 && 1 -> 4
-
-    //parent: floor(i-1/2)
-    //child 1: 2i + 1
-    //child 2: 2i + 2
-    heap aMinheap = hCreate(1, 2);
+    heap aMinheap = hCreate(0, 2);
     hInsert(&aMinheap, 5);
     hInsert(&aMinheap, 3);
     hInsert(&aMinheap, 4);
@@ -26,7 +14,6 @@ int main()
     hInsert(&aMinheap, 40);
     hInsert(&aMinheap, 8);
     hInsert(&aMinheap, 2);
-    //printHeapArray(aMinheap);
     printf("Height: %d\n", heapHeight(aMinheap));
 
     printf("Printing heap like a tree: \n");
