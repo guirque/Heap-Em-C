@@ -18,8 +18,8 @@ heap hCreate(int type, int initialSize)
 {
     heap* aHeap = (heap*)malloc(sizeof(heap));
     aHeap->size = initialSize; //stores the size of the heap
-    aHeap->taken = 0; //tores the size taken
-    aHeap->type = type; //stores wether the heap is a minheap (0) or maxheap (1)
+    aHeap->taken = 0; //stores the size taken
+    aHeap->type = type; //stores whether the heap is a minheap (0) or maxheap (1)
 
     aHeap->content = (int*)malloc(sizeof(int) * (initialSize));
 
@@ -65,6 +65,13 @@ void hInsert(heap* aHeap, int value)
             parent = floor((child-1)/2);
         };
     
+}
+
+//Removes last element in heap
+void hPop(heap* aHeap)
+{
+    aHeap->content[aHeap->taken-1] = 0;
+    aHeap->taken--;
 }
 
 //Prints heap (as an array)
@@ -118,4 +125,14 @@ void printHeap(heap aHeap)
         printHeapLevel(aHeap, 0, 0, i);
         printf("\n");
     }
+}
+
+//Returns whether an element is inside the heap or not.
+int hExists(heap aHeap, int value)
+{
+    for(int i = 0; i < aHeap.taken; i++)
+    {
+        if(aHeap.content[i] == value) return 1;
+    }
+    return 0;
 }

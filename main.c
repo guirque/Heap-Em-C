@@ -5,7 +5,7 @@
 
 int main()
 {
-    heap aMinheap = hCreate(0, 2);
+    heap aMinheap = hCreate(1, 2);
     hInsert(&aMinheap, 5);
     hInsert(&aMinheap, 3);
     hInsert(&aMinheap, 4);
@@ -16,11 +16,20 @@ int main()
     hInsert(&aMinheap, 2);
     printf("Height: %d\n", heapHeight(aMinheap));
 
-    printf("Printing heap like a tree: \n");
+    printf("\nPrinting heap like a tree: \n");
     printHeap(aMinheap);
-    printf("Printing heap like an array: \n");
+    printf("\nPrinting heap like an array: \n");
     printHeapArray(aMinheap);
 
-    pause;
+    int lookForMe = 20;
+    printf("\n\nIs %d in the heap? %d\n", lookForMe, hExists(aMinheap, lookForMe));
+
+    printf("\n- Deleting some values -\n");
+    hPop(&aMinheap);
+    hPop(&aMinheap);
+    printf("Heap after calling hPop twice:\n");
+    printHeap(aMinheap);
+
+    //pause;
     return 0;
 }
