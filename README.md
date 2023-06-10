@@ -22,7 +22,7 @@ Referida, por meio de <code>typedef</code>, como <code>heap</code>, armazena a e
 <hr/>
 
 <li><i><code>hInsert</code></i> (heap aHeap, int value)</code></li>
-  Insere um valor no heap. Caso necessário, também redimensiona o tamanho do heap.content dinamicamente, dobrando seu espaço.
+  Insere um valor no heap. Caso necessário, também redimensiona o tamanho do heap.content dinamicamente, com <code>realloc</code>, dobrando seu espaço.
 <hr/>
 
 <li><i><code>hPop</code></i> (heap aHeap)</code></li>
