@@ -21,11 +21,11 @@ Referida, por meio de <code>typedef</code>, como <code>heap</code>, armazena a e
   Retorna um novo heap de tamanho inicial <code>initialSize</code>. Um heap pode ser criado com <code>heap nome = hCreate(tipoDoHeap, tamanho);</code> 
 <hr/>
 
-<li><i><code>hInsert</code></i> (heap aHeap, int value)</code></li>
+<li><i><code>hInsert</code></i> (heap *aHeap, int value)</code></li>
   Insere um valor no heap. Caso necessário, também redimensiona o tamanho do heap.content dinamicamente, com <code>realloc</code>, dobrando seu espaço.
 <hr/>
 
-<li><i><code>hPop</code></i> (heap aHeap)</code></li>
+<li><i><code>hPop</code></i> (heap *aHeap)</code></li>
   Remove o último elemento do heap (última "folha" do nível mais abaixo).
 <hr/>
 
