@@ -116,7 +116,7 @@ int recursiveHeight(heap aHeap, int index, int height)
 //Returns the height of a heap, as with levels defined like a tree.
 int heapHeight(heap aHeap)
 {
-    recursiveHeight(aHeap, 0, 0);
+    return recursiveHeight(aHeap, 0, 0);
 }
 
 //Prints a heap per level, like a tree.

@@ -37,6 +37,10 @@ Referida, por meio de <code>typedef</code>, como <code>heap</code>, armazena a e
   Imprime o heap normalmente (como um vetor).
 <hr/>
 
+<li><i><code>heapHeight</code></i> (heap aHeap)</code></li>
+  Retorna a altura do heap, como em uma árvore.
+<hr/>
+
 <li><i><code>hExists</code></i> (heap aHeap, int value)</code></li>
   Retorna 1 caso um elemento exista no heap. Caso contrário, retorna 0.
 <hr/>
