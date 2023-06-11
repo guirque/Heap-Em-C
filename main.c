@@ -25,11 +25,11 @@ int main()
     printf("\n\nIs %d in the heap? %d\n", lookForMe, hExists(aMinheap, lookForMe));
 
     printf("\n- Deleting some values -\n");
-    hPop(&aMinheap);
-    hPop(&aMinheap);
+    printf("Removed %d\n", hPop(&aMinheap));
+    printf("Removed %d\n", hPop(&aMinheap));
     printf("Heap after calling hPop twice:\n");
     printHeap(aMinheap);
 
-    //pause;
+    pause;
     return 0;
 }

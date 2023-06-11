@@ -67,11 +67,13 @@ void hInsert(heap* aHeap, int value)
     
 }
 
-//Removes last element in heap
-void hPop(heap* aHeap)
+//Removes last element in heap. Also returns the element removed.
+int hPop(heap* aHeap)
 {
+    int removed = aHeap->content[aHeap->taken-1];
     aHeap->content[aHeap->taken-1] = 0;
     aHeap->taken--;
+    return removed;
 }
 
 //Prints heap (as an array)
