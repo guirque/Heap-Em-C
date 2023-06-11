@@ -18,7 +18,7 @@ Referida, por meio de <code>typedef</code>, como <code>heap</code>, armazena a e
 <h2>Funções</h2>
 <ul>
 <li><i><code>hCreate</code></i> (int type, int initialSize)</li>
-  Retorna um novo heap de tamanho inicial <code>initialSize</code>. Um heap pode ser criado com <code>heap nome = hCreate(tamanho);</code> 
+  Retorna um novo heap de tamanho inicial <code>initialSize</code>. Um heap pode ser criado com <code>heap nome = hCreate(tipoDoHeap, tamanho);</code> 
 <hr/>
 
 <li><i><code>hInsert</code></i> (heap aHeap, int value)</code></li>
