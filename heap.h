@@ -26,23 +26,10 @@ heap hCreate(int type, int initialSize)
     return *aHeap;
 }
 
-//Insert in heap
-void hInsert(heap* aHeap, int value)
+//Reorder
+void reorderHeapInsertion(heap *aHeap)
 {
-    //Insert as leaf node
-    aHeap->content[aHeap->taken] = value;
-    aHeap->taken++;
-
-    //Doubling size, in case it's not enough
-    if(aHeap->taken == aHeap->size)
-    {
-        aHeap->content = (int*)realloc(aHeap->content, sizeof(int)*(aHeap->size*2));
-        aHeap->size *= 2;
-    }
-    
-    //Checking if it's still ordered
-    //Start with the current element inserted, then check if the father is ordered, according to heap type
-    int child = aHeap->taken-1;
+    int child = aHeap->taken-1; //Start from last element present
     int parent = floor((child-1)/2);
     
         //printf("%d <= %d : %d\n", aHeap->content[parent], aHeap->content[child], aHeap->content[parent] <= aHeap->content[child]);
@@ -63,16 +50,63 @@ void hInsert(heap* aHeap, int value)
             child = parent;
             if(parent == 0) parent = -1;
             parent = floor((child-1)/2);
-        };
+        }
+}
+
+void reorderHeapPop(heap *aHeap, int parent)
+{
+    //If the parent has a chance of being unordered
+    if(parent < aHeap->taken-1){
+
+        //Check children
+        int child1 = parent*2 + 1;
+        int unordered;
+        //Order to the left first (child1), then to the right (child1+1)
+        for(int i = 0; i < 2; i++){
+
+            unordered = aHeap->type ? aHeap->content[child1+i] > aHeap->content[parent] : aHeap->content[child1+i] < aHeap->content[parent];
+
+            if(child1 <= aHeap->taken - 1 && unordered)
+            {
+                //Switch and check order of children
+                int auxChild = aHeap->content[child1+i];
+                aHeap->content[child1+i] = aHeap->content[parent];
+                aHeap->content[parent] = auxChild;
+                reorderHeapPop(aHeap, child1+i);
+            }
+        }
+        
+    }
+}
+
+//Insert in heap
+void hInsert(heap* aHeap, int value)
+{
+    //Insert as leaf node
+    aHeap->content[aHeap->taken] = value;
+    aHeap->taken++;
+
+    //Doubling size, in case it's not enough
+    if(aHeap->taken == aHeap->size)
+    {
+        aHeap->content = (int*)realloc(aHeap->content, sizeof(int)*(aHeap->size*2));
+        aHeap->size *= 2;
+    }
+    
+    //Checking if it's still ordered
+    //Start with the current element inserted, then check if the father is ordered, according to heap type
+    reorderHeapInsertion(aHeap);
     
 }
 
-//Removes last element in heap. Also returns the element removed.
+//Removes root element in heap. Also returns the element removed.
 int hPop(heap* aHeap)
 {
-    int removed = aHeap->content[aHeap->taken-1];
-    aHeap->content[aHeap->taken-1] = 0;
+    int removed = aHeap->content[0];
+
+    aHeap->content[0] = aHeap->content[aHeap->taken - 1];
     aHeap->taken--;
+    reorderHeapPop(aHeap, 0);
     return removed;
 }
 

@@ -26,7 +26,7 @@ Referida, por meio de <code>typedef</code>, como <code>heap</code>, armazena a e
 <hr/>
 
 <li><i><code>hPop</code></i> (heap *aHeap)</code></li>
-  Remove o último elemento do heap (última "folha" do nível mais abaixo) e retorna esse elemento.
+  Remove a raiz do heap e retorna esse elemento.
 <hr/>
 
 <li><i><code>printHeap</code></i> (heap aHeap)</code></li>

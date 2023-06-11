@@ -5,19 +5,23 @@
 
 int main()
 {
-    heap aMinheap = hCreate(1, 2);
-    hInsert(&aMinheap, 5);
-    hInsert(&aMinheap, 3);
-    hInsert(&aMinheap, 4);
+    heap aMinheap = hCreate(0, 2);
+    
     hInsert(&aMinheap, 20);
-    hInsert(&aMinheap, 30);
-    hInsert(&aMinheap, 40);
-    hInsert(&aMinheap, 8);
-    hInsert(&aMinheap, 2);
+    hInsert(&aMinheap, 10);
+    hInsert(&aMinheap, 5);
+    hInsert(&aMinheap, 19);
+    hInsert(&aMinheap, 4);
+    hInsert(&aMinheap, 17);
+    hInsert(&aMinheap, 12);
+    hInsert(&aMinheap, 98);
+    hInsert(&aMinheap, 3);
+    
     printf("Height: %d\n", heapHeight(aMinheap));
 
     printf("\nPrinting heap like a tree: \n");
     printHeap(aMinheap);
+    
     printf("\nPrinting heap like an array: \n");
     printHeapArray(aMinheap);
 
@@ -26,10 +30,10 @@ int main()
 
     printf("\n- Deleting some values -\n");
     printf("Removed %d\n", hPop(&aMinheap));
+    printHeap(aMinheap); printf("\n");
     printf("Removed %d\n", hPop(&aMinheap));
-    printf("Heap after calling hPop twice:\n");
     printHeap(aMinheap);
-
+    
     pause;
     return 0;
 }
