@@ -53,29 +53,72 @@ void reorderHeapInsertion(heap *aHeap)
         }
 }
 
-void reorderHeapPop(heap *aHeap, int parent)
+void reorderHeapPop(heap *aHeap)
 {
-    //If the parent has a chance of being unordered
-    if(parent < aHeap->taken-1){
+    //Start from parent. Check children. Switch with children until ordered.
+    int parent = 0;
+    int child1 = 1;
+    int child2 = 2;
 
-        //Check children
-        int child1 = parent*2 + 1;
-        int unordered;
-        //Order to the left first (child1), then to the right (child1+1)
-        for(int i = 0; i < 2; i++){
+    //While swapping is necessary
 
-            unordered = aHeap->type ? aHeap->content[child1+i] > aHeap->content[parent] : aHeap->content[child1+i] < aHeap->content[parent];
+    //MAXHEAP
+    if(aHeap->type) 
+    while
+    (
+        (child1 != -1 && aHeap->content[child1] > aHeap->content[parent]) 
+        || (child2 != -1 && aHeap->content[child2] > aHeap->content[parent])
+    )
+    {
+        //Choose biggest child (to replace parent)
+        int chosenChild;
+        if(child1 != -1 && child2 != -1) 
+            chosenChild = aHeap->content[child1] > aHeap->content[child2] ? child1 : child2;
+        else if(child1 != -1)
+            chosenChild = child1;
+        else
+            chosenChild = child2;
 
-            if(child1 <= aHeap->taken - 1 && unordered)
-            {
-                //Switch and check order of children
-                int auxChild = aHeap->content[child1+i];
-                aHeap->content[child1+i] = aHeap->content[parent];
-                aHeap->content[parent] = auxChild;
-                reorderHeapPop(aHeap, child1+i);
-            }
-        }
-        
+        //Changing Parent and Children
+        int aux = aHeap->content[chosenChild];
+        aHeap->content[chosenChild] = aHeap->content[parent];
+        aHeap->content[parent] = aux;
+
+        //Changing Parent and Children Indexes, for next iteration
+        parent = chosenChild;
+        child1 = parent*2 + 1;
+        child2 = child1 + 1;
+        if(child1 > aHeap->taken-1) child1 = -1;
+        if(child2 > aHeap->taken-1) child2 = -1;
+    }
+    else
+    //MINHEAP
+    while
+    (
+        (child1 != -1 && aHeap->content[child1] < aHeap->content[parent]) 
+        || (child2 != -1 && aHeap->content[child2] < aHeap->content[parent])
+    )
+    {
+        //Choose smallest child (to replace parent)
+        int chosenChild;
+        if(child1 != -1 && child2 != -1) 
+            chosenChild = aHeap->content[child1] < aHeap->content[child2] ? child1 : child2;
+        else if(child1 != -1)
+            chosenChild = child1;
+        else
+            chosenChild = child2;
+
+        //Changing Parent and Children
+        int aux = aHeap->content[chosenChild];
+        aHeap->content[chosenChild] = aHeap->content[parent];
+        aHeap->content[parent] = aux;
+
+        //Changing Parent and Children Indexes, for next iteration
+        parent = chosenChild;
+        child1 = parent*2 + 1;
+        child2 = child1 + 1;
+        if(child1 > aHeap->taken-1) child1 = -1;
+        if(child2 > aHeap->taken-1) child2 = -1;
     }
 }
 
@@ -106,7 +149,7 @@ int hPop(heap* aHeap)
 
     aHeap->content[0] = aHeap->content[aHeap->taken - 1];
     aHeap->taken--;
-    reorderHeapPop(aHeap, 0);
+    reorderHeapPop(aHeap);
     return removed;
 }
 
